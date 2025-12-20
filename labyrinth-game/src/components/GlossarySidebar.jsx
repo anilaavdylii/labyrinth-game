@@ -2,32 +2,173 @@
 
 import { useState } from "react";
 
-// Example glossary data structure
 const GLOSSARY_SECTIONS = [
   {
-    id: "core",
-    title: "Core Concepts",
-    content: `The labyrinth is a 5x5 grid of rooms. Each room may contain monsters, treasure, or special encounters. Movement is only allowed horizontally or vertically unless stated otherwise.`,
+    id: "intro",
+    title: "Introduction",
+    content: `Logic of the Labyrinth is a hybrid board game designed to teach programming logic through play.
+
+Players build simple algorithms using instruction tokens to navigate a dangerous labyrinth, fight monsters, and reach the Core.
+
+The game focuses on logical thinking, prediction, and problem solving rather than syntax or real code.`,
   },
+
+  {
+    id: "grid",
+    title: "The Labyrinth Grid",
+    content: `The labyrinth consists of a 5x5 grid of room tiles.
+
+• Movement is only allowed horizontally or vertically
+• Diagonal movement is only possible with special tokens
+• Each tile may contain monsters, treasure, or special effects
+• The Boss Room is always placed at the center of the grid`,
+  },
+
   {
     id: "actions",
-    title: "Actions",
-    content: `Each instruction token equals one action. Players and monsters execute one action per step. Examples: MOVE, TURN, ATTACK, WAIT.`,
+    title: "Actions & Steps",
+    content: `An action is one step in an algorithm.
+
+• Each instruction token equals exactly one action
+• Players and monsters execute one action at the same time
+• Actions are resolved step-by-step from top to bottom
+
+If an action cannot be performed (e.g. moving into a wall), it has no effect.`,
   },
+
+  {
+    id: "instructions",
+    title: "Instruction Tokens",
+    content: `Instruction tokens are the building blocks of your algorithm.
+
+Types of instruction tokens include:
+• Logic tokens (IF, ELSE, WHILE, END)
+• Movement tokens (MOVE, TURN)
+• Combat tokens (ATTACK, ABILITY)
+• Utility tokens (WAIT, BREAK)
+
+Tokens are placed in a single row and executed in order.`,
+  },
+
   {
     id: "ifelse",
     title: "IF / ELSE",
-    content: `IF tokens check a condition. If true, instructions inside are executed. Example:\nIF monster in front\n  ATTACK\nELSE\n  MOVE 1 STRAIGHT\nEND IF`,
+    content: `IF tokens check a condition before executing instructions.
+
+If the condition is true, instructions inside the IF block are executed.
+If false, instructions are skipped unless an ELSE block exists.
+
+Example:
+
+IF monster in front
+  ATTACK
+ELSE
+  MOVE 1 STRAIGHT
+END IF
+
+IF blocks allow players to react dynamically to the game state.`,
   },
+
   {
     id: "while",
-    title: "WHILE",
-    content: `WHILE tokens repeat instructions while a condition is true. Example:\nWHILE monster in front\n  ATTACK\nEND WHILE`,
+    title: "WHILE Loops",
+    content: `WHILE tokens repeat instructions while a condition is true.
+
+Everything between WHILE and END WHILE repeats until:
+• The condition becomes false
+• The loop reaches its maximum repetition limit (5 times)
+
+Example:
+
+WHILE monster in front
+  ATTACK
+END WHILE
+
+WHILE loops are useful for corridors or repeated combat.`,
   },
+
   {
     id: "break",
     title: "BREAK",
-    content: `BREAK immediately stops the current algorithm. Example:\nIF HP < 5\n  BREAK\nEND IF`,
+    content: `BREAK immediately stops the current algorithm.
+
+It is often used inside IF statements to exit when something unexpected happens.
+
+Example:
+
+IF HP < 5
+  BREAK
+END IF
+
+After BREAK, no further instructions are executed this round.`,
+  },
+
+  {
+    id: "movement",
+    title: "Movement Tokens",
+    content: `Movement tokens control how the player navigates the grid.
+
+• MOVE: Moves the player forward
+• TURN: Rotates the player clockwise
+• DIAG: Allows diagonal movement when combined with MOVE
+
+Movement respects walls and blocked tiles. Invalid movement actions do nothing.`,
+  },
+
+  {
+    id: "combat",
+    title: "Combat Rules",
+    content: `Combat occurs when a monster is within attack range.
+
+• ATTACK tokens deal damage based on your weapon
+• Monsters attack automatically based on their algorithm
+• Damage is reduced by armor before HP is subtracted
+
+If HP reaches 0, the target is removed from the board.`,
+  },
+
+  {
+    id: "monsters",
+    title: "Monster Algorithms",
+    content: `Monsters follow fixed algorithm cards.
+
+• Monsters execute one action per step
+• They act simultaneously with the player
+• Monster behavior cannot be controlled
+
+If multiple monsters attempt the same action:
+1. Higher rarity goes first
+2. Higher HP goes first
+3. If tied, no action occurs`,
+  },
+
+  {
+    id: "loot",
+    title: "Loot & Inventory",
+    content: `Loot is obtained from treasure chests or defeated monsters.
+
+The web app determines:
+• Which loot pile to draw from
+• How many items are gained
+
+Inventory limits:
+• 1 Weapon
+• 1 Armor
+• 3 Consumables
+
+Equipment can be swapped at the end of a round.`,
+  },
+
+  {
+    id: "boss",
+    title: "Boss Rules",
+    content: `The Boss Room is located at the center of the labyrinth.
+
+• The boss remains inactive until the player enters the room
+• Once active, it follows its own algorithm
+• Defeating the boss wins the game
+
+If the player reaches 0 HP, the game is lost.`,
   },
 ];
 
