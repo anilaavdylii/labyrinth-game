@@ -9,8 +9,7 @@ const Page = () => {
   return (
     <div className="relative min-h-screen">
       <div className={`transition-all ${showGlossary ? "blur-sm" : ""}`}>
-        {/* <GridBoard /> */}
-        BOARD WILL BE DISPLAYED HERE{" "}
+        <GridBoard />
       </div>
 
       {!showGlossary && (

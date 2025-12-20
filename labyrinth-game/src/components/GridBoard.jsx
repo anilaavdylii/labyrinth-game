@@ -1,75 +1,81 @@
 "use client";
 
 export default function GridBoard() {
-  const ROOMS = [
-    "/img/entrance1.png",
-    "/img/entrance2.png",
+  const GRID_SIZE = 3; // inner 3x3 grid
+
+  const ENTRY_IMAGE = "/img/entry.png";
+  const BOSS_POS = { row: 1, col: 1 }; // center of 3x3 grid
+  const monster = { row: 2, col: 1, img: "/img/monsters/monster1.png" };
+
+  const ROOM_IMAGES = [
+    "/img/img1.png",
+    "/img/img2.png",
     "/img/img3.png",
     "/img/img4.png",
     "/img/img5.png",
-    "/img/img6.png",
-    "/img/img7.png",
-    "/img/img8.png",
-    "/img/img11.png",
-    "/img/img12.png",
-    "/img/boss1.png",
-    "/img/boss2.png",
-    "/img/img13.png",
-    "/img/img14.png",
   ];
+  const TILE_IMAGES = { boss: "/img/boss.png" };
 
-  const monster = {
-    row: 2, // 0 = top row, 1 = middle, 2 = bottom
-    col: 3, // 0 to 5
-    img: "/img/monsters/monster1.png", // your monster
+  const getTileType = (row, col) => {
+    if (row === BOSS_POS.row && col === BOSS_POS.col) return "boss";
+    return "room";
   };
 
-  // Map grid position to room image
-  const getRoomImage = (row, col) => {
-    if (row === 0) return col === 2 ? ROOMS[0] : col === 3 ? ROOMS[1] : null;
-    if (row === 1) return ROOMS[2 + col];
-    if (row === 2) return ROOMS[8 + col];
-    return null;
+  const getTileImage = (row, col) => {
+    const type = getTileType(row, col);
+    if (type === "room") {
+      const index = (row * GRID_SIZE + col) % ROOM_IMAGES.length;
+      return ROOM_IMAGES[index];
+    }
+    return TILE_IMAGES[type];
   };
 
   return (
-    <div className="min-h-screen bg-black p-8">
-      <h1 className="text-center text-5xl font-bold mb-10 text-green-400 font-mono tracking-widest">
-        LABYRINTH LOGIC
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black p-8 flex flex-col items-center">
+      {/* Stylish Title */}
+      <h1 className="text-center text-xl font-extrabold mb-12 text-yellow-400 tracking-widest drop-shadow-lg">
+        LOGIC OF <span className="text-green-400">THE LABYRINTH</span>
       </h1>
 
-      <div className="flex justify-center">
-        <div className="grid grid-rows-3 gap-4">
-          {[0, 1, 2].map((row) => (
-            <div key={row} className="grid grid-cols-6 gap-4">
-              {[0, 1, 2, 3, 4, 5].map((col) => {
-                const roomImg = getRoomImage(row, col);
+      {/* Entry + Grid */}
+      <div className="relative w-full max-w-3xl flex flex-col items-center ">
+        {/* Entry Image */}
+        <div className="mx-auto ">
+          <img
+            src={ENTRY_IMAGE}
+            alt="entry"
+            className="h-36 md:h-44 object-cover "
+          />
+        </div>
+
+        {/* Inner Grid */}
+        <div className="grid grid-rows-3 w-full">
+          {[...Array(GRID_SIZE)].map((_, row) => (
+            <div key={row} className="grid grid-cols-3 ">
+              {[...Array(GRID_SIZE)].map((_, col) => {
+                const type = getTileType(row, col);
+                const imageSrc = getTileImage(row, col);
                 const hasMonster = row === monster.row && col === monster.col;
 
                 return (
-                  <div key={`${row}-${col}`} className="relative w-64 h-64">
-                    {roomImg ? (
-                      <>
-                        {/* Room Tile */}
-                        <img
-                          src={roomImg}
-                          alt={`Room ${row}-${col}`}
-                          className="w-full h-full object-cover rounded-2xl border-8 border-green-900 shadow-2xl"
-                        />
+                  <div
+                    key={`${row}-${col}`}
+                    className="relative h-36 md:h-44 flex items-center justify-center overflow-hidden shadow-xl"
+                  >
+                    <img
+                      src={imageSrc}
+                      alt={type}
+                      className="w-full h-full object-cover"
+                    />
 
-                        {/* Monster Overlay */}
-                        {hasMonster && (
-                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <img
-                              src={monster.img}
-                              alt="Monster"
-                              className="w-48 h-48 object-contain drop-shadow-2xl animate-pulse"
-                            />
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <div className="w-64 h-64" />
+                    {hasMonster && (
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <img
+                          src={monster.img}
+                          alt="Monster"
+                          className="w-20 md:w-24 h-20 md:h-24 animate-pulse drop-shadow-2xl"
+                        />
+                      </div>
                     )}
                   </div>
                 );
