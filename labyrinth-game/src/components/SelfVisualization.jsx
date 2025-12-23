@@ -5,6 +5,7 @@ const SelfVisualization = ({
   backgroundImage,
   allowedTiles,
   onMonsterClick,
+  onTreasureClick,
 }) => {
   const rows = 5;
   const cols = 8;
@@ -15,6 +16,7 @@ const SelfVisualization = ({
   const viewHeight = rows * cellSize;
 
   const [monsters, setMonsters] = useState([]);
+  const [treasures, setTreasures] = useState([]);
 
   useEffect(() => {
     if (!allowedTiles) return;
@@ -27,6 +29,7 @@ const SelfVisualization = ({
 
     if (allowedIndices.length === 0) return;
 
+    // --- MONSTERS ---
     const MONSTER_IMAGES = [
       "/img/monsters/monster1.jpg",
       "/img/monsters/monster2.jpg",
@@ -70,6 +73,37 @@ const SelfVisualization = ({
     }
 
     setMonsters(newMonsters);
+
+    const TREASURE_IMAGE = "/img/treasure.jpg";
+
+    let maxTreasures = 2;
+    if (difficulty === "normal") maxTreasures = 3;
+    if (difficulty === "hard") maxTreasures = 1;
+
+    const treasureIndices = allowedIndices.filter((i) => !usedIndices.has(i));
+    const newTreasures = [];
+    const treasureSet = new Set();
+
+    while (
+      newTreasures.length < Math.min(maxTreasures, treasureIndices.length)
+    ) {
+      const randomIndex =
+        treasureIndices[Math.floor(Math.random() * treasureIndices.length)];
+      if (treasureSet.has(randomIndex)) continue;
+      treasureSet.add(randomIndex);
+
+      const row = Math.floor(randomIndex / cols);
+      const col = randomIndex % cols;
+
+      newTreasures.push({
+        src: TREASURE_IMAGE,
+        x: col * cellSize,
+        y: row * cellSize,
+        size: cellSize,
+      });
+    }
+
+    setTreasures(newTreasures);
   }, [allowedTiles]);
 
   return (
@@ -107,7 +141,7 @@ const SelfVisualization = ({
 
         {monsters.map((monster, i) => (
           <image
-            key={i}
+            key={`m-${i}`}
             href={monster.src}
             x={monster.x + cellSize * 0.1}
             y={monster.y + cellSize * 0.1}
@@ -116,6 +150,20 @@ const SelfVisualization = ({
             preserveAspectRatio="xMidYMid meet"
             style={{ cursor: "pointer" }}
             onClick={() => onMonsterClick && onMonsterClick(monster.src)}
+          />
+        ))}
+
+        {treasures.map((treasure, i) => (
+          <image
+            key={`t-${i}`}
+            href={treasure.src}
+            x={treasure.x + cellSize * 0.2}
+            y={treasure.y + cellSize * 0.2}
+            width={cellSize * 0.6}
+            height={cellSize * 0.6}
+            preserveAspectRatio="xMidYMid meet"
+            style={{ cursor: "pointer" }}
+            onClick={() => onTreasureClick && onTreasureClick(treasure.src)}
           />
         ))}
       </svg>
