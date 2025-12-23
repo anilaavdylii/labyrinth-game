@@ -12,8 +12,23 @@ export default function GridBoard() {
   const BOSS_POS = { row: 1, col: 1 };
   const BOSS_IMAGE = "/img/boss.png";
 
+  const [selectedMonster, setSelectedMonster] = useState(null);
+
   const router = useRouter();
   const [difficulty, setDifficulty] = useState("");
+
+  const MONSTER_DETAILS = {
+    "/img/monsters/monster1.jpg": "/img/monsters/monster1_details.png",
+    "/img/monsters/monster2.jpg": "/img/monsters/monster2_details.png",
+    "/img/monsters/monster3.jpg": "/img/monsters/monster3_details.png",
+    "/img/monsters/monster4.jpg": "/img/monsters/monster4_details.png",
+    "/img/monsters/monster5.jpg": "/img/monsters/monster5_details.png",
+    "/img/monsters/monster6.jpg": "/img/monsters/monster6_details.png",
+    "/img/monsters/monster7.jpg": "/img/monsters/monster7_details.png",
+    "/img/monsters/monster8.jpg": "/img/monsters/monster8_details.png",
+    "/img/monsters/monster9.jpg": "/img/monsters/monster9_details.png",
+    "/img/monsters/monster10.jpg": "/img/monsters/monster10_details.png",
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem("difficulty") || "";
@@ -317,12 +332,31 @@ export default function GridBoard() {
                 <SelfVisualization
                   backgroundImage={room.src}
                   allowedTiles={room.allowedTiles}
+                  onMonsterClick={(src) => setSelectedMonster(src)}
                 />
               </div>
             );
           })
         )}
       </div>
+      {selectedMonster && (
+        <div className="fixed inset-0 bg-opacity-50 bg-blur flex items-center justify-center z-50">
+          <div className="absolute inset-0  bg-opacity-50 backdrop-blur-sm"></div>
+          <div className="relative bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center z-10">
+            <img
+              src={MONSTER_DETAILS[selectedMonster] || selectedMonster}
+              className="w-70 h-85 object-contain"
+              alt="Monster Details"
+            />
+            <button
+              onClick={() => setSelectedMonster(null)}
+              className="mt-4 px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-gray-900 rounded-lg font-semibold"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="flex flex-col md:flex-row items-center justify-center gap-2 mb-6">
         {/* Shuffle Button */}
@@ -356,11 +390,14 @@ export default function GridBoard() {
         </div>
       </div>
 
-      <p className="text-center text-xs text-gray-400 italic mt-4">
-        Click the button to generate a new labyrinth layout!
+      <p className="text-center text-sm text-gray-500 italic mt-6 max-w-lg leading-relaxed">
+        Shuffle to forge a new labyrinth. Entry and Boss remain fixed.
         <br />
-        Entry and Boss room stay fixed. Monsters spawn only in allowed floor
-        tiles.
+        Monsters appear only on walkable floor tiles.
+        <br />
+        <span className="text-gray-400 text-xs">
+          Rare glitch? Monster on a wall? Just refresh the page.
+        </span>
       </p>
     </div>
   );

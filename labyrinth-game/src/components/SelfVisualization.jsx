@@ -1,7 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const SelfVisualization = ({ backgroundImage, allowedTiles }) => {
+const SelfVisualization = ({
+  backgroundImage,
+  allowedTiles,
+  onMonsterClick,
+}) => {
   const rows = 5;
   const cols = 8;
   const cellSize = 80;
@@ -36,10 +40,8 @@ const SelfVisualization = ({ backgroundImage, allowedTiles }) => {
       "/img/monsters/monster10.jpg",
     ];
 
-    let numMonsters = 1; // default for normal
-
+    let numMonsters = 1;
     if (difficulty === "hard") {
-      // 1–3 monsters randomly for hard
       numMonsters =
         1 + Math.floor(Math.random() * Math.min(3, allowedIndices.length));
     }
@@ -112,6 +114,8 @@ const SelfVisualization = ({ backgroundImage, allowedTiles }) => {
             width={cellSize * 0.8}
             height={cellSize * 0.8}
             preserveAspectRatio="xMidYMid meet"
+            style={{ cursor: "pointer" }}
+            onClick={() => onMonsterClick && onMonsterClick(monster.src)}
           />
         ))}
       </svg>
