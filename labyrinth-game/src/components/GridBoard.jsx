@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import SelfVisualization from "./SelfVisualization";
 
 export default function GridBoard() {
@@ -7,12 +10,26 @@ export default function GridBoard() {
 
   const ENTRY_IMAGE = "/img/entry.png";
   const BOSS_POS = { row: 1, col: 1 };
+  const BOSS_IMAGE = "/img/boss.png";
 
-  const ROOM_IMAGES = [
+  const router = useRouter();
+  const [difficulty, setDifficulty] = useState("");
+
+  useEffect(() => {
+    const stored = localStorage.getItem("difficulty") || "";
+    setDifficulty(stored);
+  }, []);
+
+  const handleChangeDifficulty = () => {
+    // Redirect back to setup page
+    router.push("/game/setup");
+  };
+
+  // Fixed room pool - these are shuffled for the 7 non-boss positions
+  const BASE_ROOMS = [
     {
       src: "/img/img1.png",
       allowedTiles: [
-        // Row 0 (Top)
         "notallowed",
         "allowed",
         "allowed",
@@ -21,8 +38,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-
-        // Row 1
         "notallowed",
         "allowed",
         "notallowed",
@@ -31,8 +46,6 @@ export default function GridBoard() {
         "notallowed",
         "allowed",
         "notallowed",
-
-        // Row 2
         "notallowed",
         "allowed",
         "allowed",
@@ -41,8 +54,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-
-        // Row 3
         "notallowed",
         "allowed",
         "notallowed",
@@ -51,8 +62,6 @@ export default function GridBoard() {
         "notallowed",
         "allowed",
         "notallowed",
-
-        // Row 4 (Bottom)
         "notallowed",
         "allowed",
         "allowed",
@@ -66,7 +75,6 @@ export default function GridBoard() {
     {
       src: "/img/img2.png",
       allowedTiles: [
-        // Row 0 (Top) - Dark tile in the first and last columns
         "notallowed",
         "allowed",
         "allowed",
@@ -75,8 +83,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-
-        // Row 1 - Only the rightmost column is a wall
         "allowed",
         "allowed",
         "allowed",
@@ -85,8 +91,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-
-        // Row 2 - Only the rightmost column is a wall
         "allowed",
         "allowed",
         "allowed",
@@ -95,8 +99,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-
-        // Row 3 - Only the rightmost column is a wall
         "allowed",
         "allowed",
         "allowed",
@@ -105,8 +107,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-
-        // Row 4 (Bottom) - Entire bottom row is dark tiles/walls
         "notallowed",
         "notallowed",
         "notallowed",
@@ -120,7 +120,6 @@ export default function GridBoard() {
     {
       src: "/img/img3.png",
       allowedTiles: [
-        // Row 0: Top-left and top-right are walls
         "notallowed",
         "allowed",
         "allowed",
@@ -129,7 +128,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-        // Row 1: Only the right column is a wall
         "allowed",
         "allowed",
         "allowed",
@@ -138,7 +136,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-        // Row 2: Only the right column is a wall
         "allowed",
         "allowed",
         "allowed",
@@ -147,7 +144,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-        // Row 3: Only the right column is a wall
         "allowed",
         "allowed",
         "allowed",
@@ -156,7 +152,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-        // Row 4: Entire bottom row is walls
         "notallowed",
         "notallowed",
         "notallowed",
@@ -170,7 +165,6 @@ export default function GridBoard() {
     {
       src: "/img/img4.png",
       allowedTiles: [
-        // Row 0
         "notallowed",
         "allowed",
         "allowed",
@@ -179,7 +173,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-        // Row 1
         "allowed",
         "allowed",
         "allowed",
@@ -188,7 +181,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-        // Row 2
         "allowed",
         "allowed",
         "allowed",
@@ -197,7 +189,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-        // Row 3
         "allowed",
         "allowed",
         "allowed",
@@ -206,7 +197,6 @@ export default function GridBoard() {
         "allowed",
         "allowed",
         "notallowed",
-        // Row 4
         "notallowed",
         "notallowed",
         "notallowed",
@@ -264,183 +254,113 @@ export default function GridBoard() {
     },
   ];
 
-  const MONSTER_IMAGES = [
-    "/img/monsters/monster1.jpg",
-    "/img/monsters/monster2.jpg",
-    "/img/monsters/monster3.jpg",
-    "/img/monsters/monster4.jpg",
-    "/img/monsters/monster5.jpg",
-    "/img/monsters/monster6.jpg",
-    "/img/monsters/monster7.jpg",
-  ];
+  // State for shuffled rooms (7 positions)
+  const [shuffledRooms, setShuffledRooms] = useState(() =>
+    [...BASE_ROOMS].sort(() => Math.random() - 0.5)
+  );
 
-  const TILE_IMAGES = {
-    boss: "/img/boss.png",
-    allowedTiles: [
-      "notallowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "notallowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "notallowed",
-      "notallowed",
-      "notallowed",
-      "notallowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "notallowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "allowed",
-      "notallowed",
-    ],
+  const shuffleRooms = () => {
+    setShuffledRooms([...BASE_ROOMS].sort(() => Math.random() - 0.5));
   };
 
-  const getTileType = (row, col) => {
-    if (row === BOSS_POS.row && col === BOSS_POS.col) return "boss";
-    return "room";
-  };
-
-  const getTileImage = (row, col) => {
-    const type = getTileType(row, col);
-    if (type === "room") {
-      const index = (row * GRID_SIZE + col) % ROOM_IMAGES.length;
-      return ROOM_IMAGES[index].src;
+  const getRoomForPosition = (row, col) => {
+    if (row === BOSS_POS.row && col === BOSS_POS.col) {
+      return { src: BOSS_IMAGE, allowedTiles: null }; // Boss has no monsters
     }
-    return TILE_IMAGES[type];
-  };
-
-  const getRandomAllowedPosition = (allowedTiles) => {
-    const allowedIndices = allowedTiles
-      .map((tile, index) => (tile === "allowed" ? index : -1))
-      .filter((i) => i !== -1);
-
-    if (allowedIndices.length === 0) return null;
-
-    const randomIndex =
-      allowedIndices[Math.floor(Math.random() * allowedIndices.length)];
-    const gridRow = Math.floor(randomIndex / 8); // 0 to 4
-    const gridCol = randomIndex % 8; // 0 to 7
-
-    // Exact center of the chosen grid cell
-    const top = (gridRow + 0.5) * (100 / 5); // 10%, 30%, 50%, 70%, 90%
-    const left = (gridCol + 0.5) * (100 / 8); // 6.25%, 18.75%, ..., 93.75%
-
-    return { top: `${top}%`, left: `${left}%` };
-  };
-
-  const getRandomAllowedCell = (allowedTiles) => {
-    const COLS = 8;
-    const CELL_SIZE = 80;
-
-    const allowedIndices = allowedTiles
-      .map((tile, index) => (tile === "allowed" ? index : null))
-      .filter((v) => v !== null);
-
-    if (!allowedIndices.length) return null;
-
-    const index =
-      allowedIndices[Math.floor(Math.random() * allowedIndices.length)];
-
-    const row = Math.floor(index / COLS);
-    const col = index % COLS;
-
-    return {
-      x: col * CELL_SIZE,
-      y: row * CELL_SIZE,
-      size: CELL_SIZE,
-    };
+    // Map the 9 positions to the 7 shuffled + boss (skip center)
+    const positions = [
+      [0, 0],
+      [0, 1],
+      [0, 2],
+      [1, 0],
+      [1, 2],
+      [2, 0],
+      [2, 1],
+      [2, 2],
+    ];
+    const index = positions.findIndex((p) => p[0] === row && p[1] === col);
+    return shuffledRooms[index % shuffledRooms.length];
   };
 
   return (
     <div className="min-h-screen p-8 flex flex-col items-center gap-2 bg-gray-900">
-      <div className="flex flex-col flex-1 max-w-5xl">
-        <h1 className="text-center text-xl font-extrabold mb-3 text-yellow-400 tracking-widest drop-shadow-lg">
+      <div className="flex flex-col max-w-5xl">
+        <h1 className="text-center text-3xl font-extrabold mb-4 text-yellow-400 tracking-widest drop-shadow-2xl">
           LOGIC OF <span className="text-green-400">THE LABYRINTH</span>
         </h1>
-        <p className="text-center text-sm md:text-base text-gray-300 italic">
-          Below, the labyrinth reveals itself - a board of danger and reward,
+        <p className="text-center text-base md:text-lg text-gray-300 italic">
+          Below, the labyrinth reveals itself — a board of danger and reward,
           where monsters guard ancient treasures.
         </p>
       </div>
 
-      <div className="relative w-full flex flex-col items-center gap-2">
-        <div className="flex w-full max-w-5xl">
-          <div className="flex-1 invisible" />
-
-          <div className="relative flex-1 overflow-hidden shadow-2xl  border border-gray-700">
-            <SelfVisualization backgroundImage={ENTRY_IMAGE} />
-          </div>
-
-          <div className="flex-1 invisible" />
+      <div className="grid grid-cols-3 gap-2 w-full max-w-4xl">
+        <div />
+        <div className="relative  overflow-hidden shadow-2xl rounded-lg border border-gray-700">
+          <SelfVisualization
+            backgroundImage={ENTRY_IMAGE}
+            allowedTiles={null}
+          />
         </div>
-        <div className="flex flex-col w-full max-w-5xl">
-          {[...Array(GRID_SIZE)].map((_, row) => (
-            <div key={row} className="flex w-full gap-4">
-              {[...Array(GRID_SIZE)].map((_, col) => {
-                const type = getTileType(row, col);
-                const index = (row * GRID_SIZE + col) % ROOM_IMAGES.length;
-                const roomData = ROOM_IMAGES[index];
+        <div />
+      </div>
 
-                const imageSrc =
-                  type === "boss" ? TILE_IMAGES.boss : roomData.src;
+      <div className="grid grid-cols-3 gap-2 w-full max-w-4xl">
+        {[...Array(GRID_SIZE)].map((_, row) =>
+          [...Array(GRID_SIZE)].map((_, col) => {
+            const room = getRoomForPosition(row, col);
+            return (
+              <div
+                key={`${row}-${col}`}
+                className="relative  overflow-hidden shadow-2xl rounded-lg border border-gray-700"
+              >
+                <SelfVisualization
+                  backgroundImage={room.src}
+                  allowedTiles={room.allowedTiles}
+                />
+              </div>
+            );
+          })
+        )}
+      </div>
 
-                // Monster logic (ONE system only)
-                const hasMonster = type === "room" && Math.random() < 0.7;
+      <div className="flex flex-col md:flex-row items-center justify-center gap-2 mb-6">
+        {/* Shuffle Button */}
+        <button
+          onClick={shuffleRooms}
+          className="px-6 py-3 bg-yellow-500 hover:bg-yellow-400 
+               text-gray-900 font-semibold
+               rounded-lg shadow-md
+               transition-colors duration-200"
+        >
+          Shuffle Labyrinth
+        </button>
 
-                const monster =
-                  hasMonster && roomData.allowedTiles
-                    ? {
-                        src: MONSTER_IMAGES[
-                          Math.floor(Math.random() * MONSTER_IMAGES.length)
-                        ],
-                        ...getRandomAllowedCell(roomData.allowedTiles),
-                      }
-                    : null;
-
-                return (
-                  <div
-                    key={`${row}-${col}`}
-                    className="relative  overflow-hidden shadow-2xl rounded-lg border border-gray-700"
-                  >
-                    <SelfVisualization
-                      backgroundImage={imageSrc}
-                      allowedTiles={roomData.allowedTiles}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          ))}
+        {/* Difficulty Display */}
+        <div className="flex items-center gap-4 bg-gray-800 px-4 py-2 rounded-lg shadow-inner">
+          <span className="text-gray-200">
+            Difficulty:{" "}
+            <strong className="text-yellow-400">
+              {difficulty || "not set"}
+            </strong>
+          </span>
+          <button
+            onClick={handleChangeDifficulty}
+            className="px-4 py-2 bg-gray-700 hover:bg-gray-600 
+                 text-yellow-400 font-medium
+                 border border-yellow-400 rounded
+                 transition-colors duration-200"
+          >
+            Change
+          </button>
         </div>
       </div>
-      <p className="text-center text-xs text-gray-400 italic mt-1">
-        If by any chance a treasure or monster appears in a wall, just refresh
-        the page.
+
+      <p className="text-center text-xs text-gray-400 italic mt-4">
+        Click the button to generate a new labyrinth layout!
+        <br />
+        Entry and Boss room stay fixed. Monsters spawn only in allowed floor
+        tiles.
       </p>
     </div>
   );
