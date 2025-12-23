@@ -14,6 +14,12 @@ export default function GridBoard() {
 
   const [selectedMonster, setSelectedMonster] = useState(null);
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const router = useRouter();
   const [difficulty, setDifficulty] = useState("");
 
@@ -270,9 +276,11 @@ export default function GridBoard() {
   ];
 
   // State for shuffled rooms (7 positions)
-  const [shuffledRooms, setShuffledRooms] = useState(() =>
-    [...BASE_ROOMS].sort(() => Math.random() - 0.5)
-  );
+  const [shuffledRooms, setShuffledRooms] = useState(BASE_ROOMS);
+
+  useEffect(() => {
+    setShuffledRooms([...BASE_ROOMS].sort(() => Math.random() - 0.5));
+  }, []);
 
   const shuffleRooms = () => {
     setShuffledRooms([...BASE_ROOMS].sort(() => Math.random() - 0.5));
@@ -320,29 +328,32 @@ export default function GridBoard() {
         <div />
       </div>
 
-      <div className="grid grid-cols-3 gap-2 w-full max-w-4xl">
-        {[...Array(GRID_SIZE)].map((_, row) =>
-          [...Array(GRID_SIZE)].map((_, col) => {
-            const room = getRoomForPosition(row, col);
-            return (
-              <div
-                key={`${row}-${col}`}
-                className="relative  overflow-hidden shadow-2xl rounded-lg border border-gray-700"
-              >
-                <SelfVisualization
-                  backgroundImage={room.src}
-                  allowedTiles={room.allowedTiles}
-                  onMonsterClick={(src) => setSelectedMonster(src)}
-                />
-              </div>
-            );
-          })
-        )}
-      </div>
+      {isClient && (
+        <div className="grid grid-cols-3 gap-2 w-full max-w-4xl">
+          {[...Array(GRID_SIZE)].map((_, row) =>
+            [...Array(GRID_SIZE)].map((_, col) => {
+              const room = getRoomForPosition(row, col);
+              return (
+                <div
+                  key={`${row}-${col}`}
+                  className="relative overflow-hidden shadow-2xl border border-gray-700"
+                >
+                  <SelfVisualization
+                    backgroundImage={room.src}
+                    allowedTiles={room.allowedTiles}
+                    onMonsterClick={(src) => setSelectedMonster(src)}
+                  />
+                </div>
+              );
+            })
+          )}
+        </div>
+      )}
+
       {selectedMonster && (
         <div className="fixed inset-0 bg-opacity-50 bg-blur flex items-center justify-center z-50">
           <div className="absolute inset-0  bg-opacity-50 backdrop-blur-sm"></div>
-          <div className="relative bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center z-10">
+          <div className="relative bg-gray-900 p-3  shadow-lg flex flex-col items-center z-10">
             <img
               src={MONSTER_DETAILS[selectedMonster] || selectedMonster}
               className="w-70 h-85 object-contain"
