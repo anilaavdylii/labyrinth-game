@@ -10,10 +10,12 @@ const SelfVisualization = ({ backgroundImage, allowedTiles }) => {
   const viewWidth = cols * cellSize;
   const viewHeight = rows * cellSize;
 
-  const [monster, setMonster] = useState(null);
+  const [monsters, setMonsters] = useState([]);
 
   useEffect(() => {
     if (!allowedTiles) return;
+
+    const difficulty = localStorage.getItem("difficulty") || "normal";
 
     const allowedIndices = allowedTiles
       .map((tile, index) => (tile === "allowed" ? index : null))
@@ -21,34 +23,51 @@ const SelfVisualization = ({ backgroundImage, allowedTiles }) => {
 
     if (allowedIndices.length === 0) return;
 
-    // 70% chance to spawn a monster
-    if (Math.random() < 0.7) {
+    const MONSTER_IMAGES = [
+      "/img/monsters/monster1.jpg",
+      "/img/monsters/monster2.jpg",
+      "/img/monsters/monster3.jpg",
+      "/img/monsters/monster4.jpg",
+      "/img/monsters/monster5.jpg",
+      "/img/monsters/monster6.jpg",
+      "/img/monsters/monster7.jpg",
+      "/img/monsters/monster8.jpg",
+      "/img/monsters/monster9.jpg",
+      "/img/monsters/monster10.jpg",
+    ];
+
+    let numMonsters = 1; // default for normal
+
+    if (difficulty === "hard") {
+      // 1–3 monsters randomly for hard
+      numMonsters =
+        1 + Math.floor(Math.random() * Math.min(3, allowedIndices.length));
+    }
+
+    const usedIndices = new Set();
+    const newMonsters = [];
+
+    while (newMonsters.length < numMonsters) {
       const randomIndex =
         allowedIndices[Math.floor(Math.random() * allowedIndices.length)];
+      if (usedIndices.has(randomIndex)) continue;
+      usedIndices.add(randomIndex);
 
       const row = Math.floor(randomIndex / cols);
       const col = randomIndex % cols;
 
-      const MONSTER_IMAGES = [
-        "/img/monsters/monster1.jpg",
-        "/img/monsters/monster2.jpg",
-        "/img/monsters/monster3.jpg",
-        "/img/monsters/monster4.jpg",
-        "/img/monsters/monster5.jpg",
-        "/img/monsters/monster6.jpg",
-        "/img/monsters/monster7.jpg",
-      ];
-
       const src =
         MONSTER_IMAGES[Math.floor(Math.random() * MONSTER_IMAGES.length)];
 
-      setMonster({
+      newMonsters.push({
         src,
         x: col * cellSize,
         y: row * cellSize,
         size: cellSize,
       });
     }
+
+    setMonsters(newMonsters);
   }, [allowedTiles]);
 
   return (
@@ -84,8 +103,9 @@ const SelfVisualization = ({ backgroundImage, allowedTiles }) => {
           )
           .flat()}
 
-        {monster && (
+        {monsters.map((monster, i) => (
           <image
+            key={i}
             href={monster.src}
             x={monster.x + cellSize * 0.1}
             y={monster.y + cellSize * 0.1}
@@ -93,7 +113,7 @@ const SelfVisualization = ({ backgroundImage, allowedTiles }) => {
             height={cellSize * 0.8}
             preserveAspectRatio="xMidYMid meet"
           />
-        )}
+        ))}
       </svg>
     </div>
   );

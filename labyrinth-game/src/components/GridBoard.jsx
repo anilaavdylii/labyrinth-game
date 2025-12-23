@@ -274,7 +274,51 @@ export default function GridBoard() {
     "/img/monsters/monster7.jpg",
   ];
 
-  const TILE_IMAGES = { boss: "/img/boss.png" };
+  const TILE_IMAGES = {
+    boss: "/img/boss.png",
+    allowedTiles: [
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+    ],
+  };
 
   const getTileType = (row, col) => {
     if (row === BOSS_POS.row && col === BOSS_POS.col) return "boss";
@@ -394,6 +438,10 @@ export default function GridBoard() {
           ))}
         </div>
       </div>
+      <p className="text-center text-xs text-gray-400 italic mt-1">
+        If by any chance a treasure or monster appears in a wall, just refresh
+        the page.
+      </p>
     </div>
   );
 }

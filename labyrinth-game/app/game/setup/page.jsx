@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Button from "../../../src/components/Button";
 import Select from "../../../src/components/Select";
@@ -8,8 +8,18 @@ export default function SetupPage() {
   const router = useRouter();
   const [difficulty, setDifficulty] = useState("");
 
+  // Load difficulty from localStorage on mount
+  useEffect(() => {
+    const savedDifficulty = localStorage.getItem("difficulty");
+    if (savedDifficulty) {
+      setDifficulty(savedDifficulty);
+    }
+  }, []);
+
   const handleStart = () => {
     if (!difficulty) return;
+    // Save difficulty to localStorage
+    localStorage.setItem("difficulty", difficulty);
     router.push("/game/board");
   };
 
@@ -31,8 +41,8 @@ export default function SetupPage() {
           onChange={(e) => setDifficulty(e.target.value)}
           options={[
             { value: "", label: "Select difficulty" },
-            { value: "easy", label: "Easy" },
             { value: "normal", label: "Normal" },
+            // { value: "normal", label: "Normal" },
             { value: "hard", label: "Hard" },
           ]}
         />
