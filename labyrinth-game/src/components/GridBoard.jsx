@@ -13,6 +13,7 @@ export default function GridBoard() {
   const BOSS_IMAGE = "/img/boss.png";
 
   const [selectedMonster, setSelectedMonster] = useState(null);
+  const [selectedTreasure, setSelectedTreasure] = useState(null);
 
   const [isClient, setIsClient] = useState(false);
 
@@ -305,6 +306,27 @@ export default function GridBoard() {
     return shuffledRooms[index % shuffledRooms.length];
   };
 
+  const getTreasureResult = (difficulty) => {
+    if (difficulty === "easy") {
+      return {
+        draws: 2,
+        piles: ["Consumables", "Weapons", "Armor"],
+      };
+    }
+
+    if (difficulty === "hard") {
+      return {
+        draws: 1,
+        piles: ["Weapons", "Consumables"],
+      };
+    }
+
+    return {
+      draws: 1,
+      piles: ["Consumables", "Weapons", "Armor"],
+    };
+  };
+
   return (
     <div className="min-h-screen p-8 flex flex-col items-center gap-2 bg-gray-900">
       <div className="flex flex-col max-w-5xl">
@@ -342,6 +364,12 @@ export default function GridBoard() {
                     backgroundImage={room.src}
                     allowedTiles={room.allowedTiles}
                     onMonsterClick={(src) => setSelectedMonster(src)}
+                    onTreasureClick={() =>
+                      setSelectedTreasure({
+                        difficulty,
+                        // later you can add class here
+                      })
+                    }
                   />
                 </div>
               );
@@ -364,6 +392,82 @@ export default function GridBoard() {
               className="mt-4 px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-gray-900 rounded-lg font-semibold"
             >
               Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {selectedTreasure && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+          <div className="relative bg-gray-900 w-full max-w-md p-6 rounded-xl border-2 border-yellow-500 shadow-2xl z-10">
+            {/* Header */}
+            <h2 className="text-2xl font-extrabold text-yellow-400 text-center mb-2 tracking-wide">
+              Treasure Chest
+            </h2>
+            <p className="text-center text-gray-400 text-sm mb-4">
+              You have discovered a hidden cache of equipment.
+            </p>
+
+            {/* Loot Instructions */}
+            <div className="bg-gray-800 rounded-lg p-4 mb-4">
+              <p className="text-gray-200 text-center mb-3">
+                When looting this chest:
+              </p>
+
+              <div className="text-center text-green-400 font-semibold text-lg">
+                Draw <span className="text-yellow-400">1 card</span> from
+                <br />
+                <span className="text-yellow-400">ONE</span> loot pile of your
+                choice
+              </div>
+            </div>
+
+            {/* Loot Piles */}
+            <div className="mb-4">
+              <p className="text-gray-300 mb-2 text-xs uppercase tracking-wider text-center">
+                Loot Piles
+              </p>
+
+              <ul className="grid grid-cols-3 gap-2 text-center text-sm">
+                <li className="bg-gray-800 rounded-md py-2 text-gray-200">
+                  Consumables
+                </li>
+                <li className="bg-gray-800 rounded-md py-2 text-gray-200">
+                  Weapons
+                </li>
+                <li className="bg-gray-800 rounded-md py-2 text-gray-200">
+                  Armor
+                </li>
+              </ul>
+            </div>
+
+            {/* Trap Notice */}
+            <div className="bg-red-900/30 border border-red-500 rounded-lg p-3 mb-4">
+              <p className="text-red-300 text-sm text-center">
+                ⚠ Trap cards are shuffled into all loot piles.
+                <br />
+                Resolve trap effects immediately when drawn.
+              </p>
+            </div>
+
+            {/* Inventory Rules */}
+            <div className="text-xs text-gray-400 text-center mb-4 leading-relaxed">
+              Inventory limits:
+              <br />
+              <strong>1</strong> Weapon · <strong>1</strong> Armor ·{" "}
+              <strong>3</strong> Consumables
+              <br />
+              You may swap equipment at the end of the round.
+            </div>
+
+            {/* Close */}
+            <button
+              onClick={() => setSelectedTreasure(null)}
+              className="w-full py-3 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold rounded-lg transition-colors"
+            >
+              Continue
             </button>
           </div>
         </div>
