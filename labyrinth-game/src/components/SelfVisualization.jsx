@@ -6,6 +6,9 @@ const SelfVisualization = ({
   allowedTiles,
   onMonsterClick,
   onTreasureClick,
+  bossMonsterSrc = null,
+  onBossClick,
+  maxTreasuresOverride = null,
 }) => {
   const rows = 5;
   const cols = 8;
@@ -17,20 +20,22 @@ const SelfVisualization = ({
 
   const [monsters, setMonsters] = useState([]);
   const [treasures, setTreasures] = useState([]);
+  const [bossMonster, setBossMonster] = useState(null);
 
   useEffect(() => {
-    if (!allowedTiles) return;
+    // Entry tile / rooms without allowedTiles
+    if (!allowedTiles) {
+      setMonsters([]);
+      setTreasures([]);
+      setBossMonster(null);
+      return;
+    }
 
     const difficulty = localStorage.getItem("difficulty") || "normal";
 
     const allowedIndices = allowedTiles
       .map((tile, index) => (tile === "allowed" ? index : null))
       .filter((i) => i !== null);
-
-    // Boss must always spawn -> fallback: allow every tile if none are allowed
-    if (allowedIndices.length === 0 && bossMonsterSrc) {
-      allowedIndices = [...Array(rows * cols).keys()];
-    }
 
     if (allowedIndices.length === 0) {
       setMonsters([]);
@@ -39,15 +44,10 @@ const SelfVisualization = ({
       return;
     }
 
-    // === BOSS ROOM MODE ===
-    // Wenn bossMonsterSrc gesetzt ist, spawnen wir:
-    // - exakt 1 Boss
-    // - KEINE normalen Monster
-    // - max 1 Treasure (oder Override)
+    // === BOSS ROOM ===
     if (bossMonsterSrc) {
       const usedIndices = new Set();
 
-      // 1) Boss spawnen (immer)
       const bossIndex =
         allowedIndices[Math.floor(Math.random() * allowedIndices.length)];
       usedIndices.add(bossIndex);
@@ -62,10 +62,8 @@ const SelfVisualization = ({
         size: cellSize,
       });
 
-      // 2) keine normalen Monster
       setMonsters([]);
 
-      // 3) max treasure
       const TREASURE_IMAGE = "/img/treasure.jpg";
       const maxTreasures =
         maxTreasuresOverride !== null ? maxTreasuresOverride : 1;
@@ -97,21 +95,15 @@ const SelfVisualization = ({
       return;
     }
 
-    // === NORMAL ROOM MODE (OG CODE) ===
+    // === NORMAL ROOM ===
     setBossMonster(null);
 
-    // --- MONSTERS ---
     const MONSTER_IMAGES = [
-      "/img/monsters/monster1.jpg",
-      "/img/monsters/monster2.jpg",
-      "/img/monsters/monster3.jpg",
-      "/img/monsters/monster4.jpg",
-      "/img/monsters/monster5.jpg",
-      "/img/monsters/monster6.jpg",
-      "/img/monsters/monster7.jpg",
-      "/img/monsters/monster8.jpg",
-      "/img/monsters/monster9.jpg",
-      "/img/monsters/monster10.jpg",
+      "/img/monsters/skeleton.jpg",
+      "/img/monsters/ghost.jpg",
+      "/img/monsters/wolf.jpg",
+      "/img/monsters/inferno.jpg",
+      "/img/monsters/ooze.jpg",
     ];
 
     let numMonsters = 1;
@@ -175,7 +167,7 @@ const SelfVisualization = ({
     }
 
     setTreasures(newTreasures);
-  }, [allowedTiles]);
+  }, [allowedTiles, bossMonsterSrc, maxTreasuresOverride]);
 
   return (
     <div
