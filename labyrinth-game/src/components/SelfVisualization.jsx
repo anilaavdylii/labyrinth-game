@@ -27,7 +27,18 @@ const SelfVisualization = ({
       .map((tile, index) => (tile === "allowed" ? index : null))
       .filter((i) => i !== null);
 
-    if (allowedIndices.length === 0) return;
+    // Boss must always spawn -> fallback: allow every tile if none are allowed
+    if (allowedIndices.length === 0 && bossMonsterSrc) {
+      allowedIndices = [...Array(rows * cols).keys()];
+    }
+
+    if (allowedIndices.length === 0) {
+      setMonsters([]);
+      setTreasures([]);
+      setBossMonster(null);
+      return;
+    }
+
 
     // --- MONSTERS ---
     const MONSTER_IMAGES = [
