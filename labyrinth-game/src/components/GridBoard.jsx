@@ -32,14 +32,13 @@ export default function GridBoard() {
   const [difficulty, setDifficulty] = useState("");
 
   const MONSTER_DETAILS = {
-    "/img/monsters/monster1.jpg": "/img/monsters/monster1_details.png",
-    "/img/monsters/monster2.jpg": "/img/monsters/monster2_details.png",
-    "/img/monsters/monster3.jpg": "/img/monsters/monster3_details.png",
-    "/img/monsters/monster4.jpg": "/img/monsters/monster4_details.png",
-    "/img/monsters/monster5.jpg": "/img/monsters/monster5_details.png",
-    "/img/monsters/monster6.jpg": "/img/monsters/monster6_details.png",
-    "/img/monsters/monster7.jpg": "/img/monsters/monster7_details.png",
-    "/img/monsters/monster8.jpg": "/img/monsters/monster8_details.png",
+    "/img/monsters/skeleton.jpg": "/img/monsters/skeleton_details.jpg",
+    "/img/monsters/ghost.jpg": "/img/monsters/ghost_details.jpg",
+    "/img/monsters/wolf.jpg": "/img/monsters/wolf_details.jpg",
+    "/img/monsters/inferno.jpg": "/img/monsters/inferno_details.jpg",
+    "/img/monsters/ooze.jpg": "/img/monsters/ooze_details.jpg",
+    "/img/monsters/dragon.jpg": "/img/monsters/dragon_details.jpg",
+    "/img/monsters/necromancer.jpg": "/img/monsters/necromancer_details.jpg",
   };
 
   useEffect(() => {
