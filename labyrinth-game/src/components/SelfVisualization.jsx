@@ -39,6 +39,66 @@ const SelfVisualization = ({
       return;
     }
 
+    // === BOSS ROOM MODE ===
+    // Wenn bossMonsterSrc gesetzt ist, spawnen wir:
+    // - exakt 1 Boss
+    // - KEINE normalen Monster
+    // - max 1 Treasure (oder Override)
+    if (bossMonsterSrc) {
+      const usedIndices = new Set();
+
+      // 1) Boss spawnen (immer)
+      const bossIndex =
+        allowedIndices[Math.floor(Math.random() * allowedIndices.length)];
+      usedIndices.add(bossIndex);
+
+      const bossRow = Math.floor(bossIndex / cols);
+      const bossCol = bossIndex % cols;
+
+      setBossMonster({
+        src: bossMonsterSrc,
+        x: bossCol * cellSize,
+        y: bossRow * cellSize,
+        size: cellSize,
+      });
+
+      // 2) keine normalen Monster
+      setMonsters([]);
+
+      // 3) max treasure
+      const TREASURE_IMAGE = "/img/treasure.jpg";
+      const maxTreasures =
+        maxTreasuresOverride !== null ? maxTreasuresOverride : 1;
+
+      const treasureIndices = allowedIndices.filter((i) => !usedIndices.has(i));
+      const newTreasures = [];
+      const treasureSet = new Set();
+
+      while (
+        newTreasures.length < Math.min(maxTreasures, treasureIndices.length)
+      ) {
+        const randomIndex =
+          treasureIndices[Math.floor(Math.random() * treasureIndices.length)];
+        if (treasureSet.has(randomIndex)) continue;
+        treasureSet.add(randomIndex);
+
+        const row = Math.floor(randomIndex / cols);
+        const col = randomIndex % cols;
+
+        newTreasures.push({
+          src: TREASURE_IMAGE,
+          x: col * cellSize,
+          y: row * cellSize,
+          size: cellSize,
+        });
+      }
+
+      setTreasures(newTreasures);
+      return;
+    }
+
+    // === NORMAL ROOM MODE (OG CODE) ===
+    setBossMonster(null);
 
     // --- MONSTERS ---
     const MONSTER_IMAGES = [
