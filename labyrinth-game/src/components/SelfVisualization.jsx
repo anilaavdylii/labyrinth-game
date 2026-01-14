@@ -147,6 +147,19 @@ const SelfVisualization = ({
           )
           .flat()}
 
+        {bossMonster && (
+          <image
+            href={bossMonster.src}
+            x={bossMonster.x + cellSize * 0.1}
+            y={bossMonster.y + cellSize * 0.1}
+            width={cellSize * 0.8}
+            height={cellSize * 0.8}
+            preserveAspectRatio="xMidYMid meet"
+            style={{ cursor: "pointer" }}
+            onClick={() => onBossClick && onBossClick(bossMonster.src)}
+          />
+        )}
+
         {monsters.map((monster, i) => (
           <image
             key={`m-${i}`}
