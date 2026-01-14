@@ -33,8 +33,6 @@ export default function GridBoard() {
     "/img/monsters/monster6.jpg": "/img/monsters/monster6_details.png",
     "/img/monsters/monster7.jpg": "/img/monsters/monster7_details.png",
     "/img/monsters/monster8.jpg": "/img/monsters/monster8_details.png",
-    "/img/monsters/monster9.jpg": "/img/monsters/monster9_details.png",
-    "/img/monsters/monster10.jpg": "/img/monsters/monster10_details.png",
   };
 
   useEffect(() => {
