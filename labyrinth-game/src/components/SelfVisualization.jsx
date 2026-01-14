@@ -146,7 +146,10 @@ const SelfVisualization = ({
     setMonsters(newMonsters);
 
     const TREASURE_IMAGE = "/img/treasure.jpg";
-    const maxTreasures = 1;
+
+    let maxTreasures = 1;
+    if (difficulty === "normal") maxTreasures = 1;
+    if (difficulty === "hard") maxTreasures = 1;
 
     const treasureIndices = allowedIndices.filter((i) => !usedIndices.has(i));
     const newTreasures = [];
