@@ -11,6 +11,13 @@ export default function GridBoard() {
   const ENTRY_IMAGE = "/img/entry.png";
   const BOSS_POS = { row: 1, col: 1 };
   const BOSS_IMAGE = "/img/boss.png";
+  const BOSS_TYPES = ["Dragon", "Necromancer"];
+  const BOSS_TOKENS = {
+   Dragon: "/img/monsters/monster10.jpg",
+   Necromancer: "/img/monsters/monster9.jpg",
+ };
+
+ const [bossType, setBossType] = useState("Dragon");
 
   const [selectedMonster, setSelectedMonster] = useState(null);
   const [selectedTreasure, setSelectedTreasure] = useState(null);
