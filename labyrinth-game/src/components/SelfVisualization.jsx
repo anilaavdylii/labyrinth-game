@@ -243,6 +243,24 @@ const SelfVisualization = ({
           />
         ))}
       </svg>
+
+      {/* Dice UI */}
+      <div className="fixed bottom-20 right-4 z-40 flex items-center gap-2">
+        <button
+          onClick={rollDice}
+          className="w-12 h-12 rounded-full border-2 border-yellow-500 bg-gray-900 shadow-xl
+                     flex items-center justify-center hover:bg-gray-800 transition"
+          title="Roll 1–3"
+        >
+          🎲
+        </button>
+        <div
+          className="w-12 h-12 rounded-lg border-2 border-yellow-500 bg-gray-900 shadow-xl
+                     flex items-center justify-center text-yellow-300 font-bold text-lg"
+        >
+          {diceValue ?? "—"}
+        </div>
+      </div>
     </div>
   );
 };
