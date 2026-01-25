@@ -108,8 +108,11 @@ const SelfVisualization = ({
 
     let numMonsters = 1;
     if (difficulty === "hard") {
-      numMonsters =
-        1 + Math.floor(Math.random() * Math.min(3, allowedIndices.length));
+       const r = Math.random();
+       if (r < 0.6) numMonsters = 2;
+       else if (r < 0.85) numMonsters = 1;
+       else numMonsters = 1;
+       numMonsters = Math.min(numMonsters, allowedIndices.length);
     }
 
     const usedIndices = new Set();
