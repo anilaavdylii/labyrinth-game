@@ -59,7 +59,8 @@ const SelfVisualization = ({
         src: bossMonsterSrc,
         x: bossCol * cellSize,
         y: bossRow * cellSize,
-        size: cellSize,
+        width: cellSize * 2,
+        height: cellSize * 2,
       });
 
       setMonsters([]);
