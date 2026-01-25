@@ -315,7 +315,7 @@ export default function GridBoard() {
           <div className="relative bg-gray-900 p-3 shadow-lg flex flex-col items-center z-10">
             <img
               src={MONSTER_DETAILS[selectedMonster] || selectedMonster}
-              className="w-70 h-85 object-contain"
+              className="w-[450px] max-w-[92vw] h-auto object-contain rounded-lg"
               alt="Monster Details"
             />
             <button
