@@ -124,13 +124,13 @@ export default function GridBoard() {
   const router = useRouter();
 
   const MONSTER_DETAILS = {
-    "/img/monsters/skeleton.jpg": "/img/monsters/skeleton_details.jpg",
-    "/img/monsters/ghost.jpg": "/img/monsters/ghost_details.jpg",
-    "/img/monsters/wolf.jpg": "/img/monsters/wolf_details.jpg",
-    "/img/monsters/inferno.jpg": "/img/monsters/inferno_details.jpg",
-    "/img/monsters/ooze.jpg": "/img/monsters/ooze_details.jpg",
-    "/img/monsters/dragon.jpg": "/img/monsters/dragon_details.jpg",
-    "/img/monsters/necromancer.jpg": "/img/monsters/necromancer_details.jpg",
+    "/img/monsters/skeleton.jpg": "/img/monsters/skeleton_details.png",
+    "/img/monsters/ghost.jpg": "/img/monsters/ghost_details.png",
+    "/img/monsters/wolf.jpg": "/img/monsters/wolf_details.png",
+    "/img/monsters/inferno.jpg": "/img/monsters/inferno_details.png",
+    "/img/monsters/ooze.jpg": "/img/monsters/ooze_details.png",
+    "/img/monsters/dragon.jpg": "/img/monsters/dragon_details.png",
+    "/img/monsters/necromancer.jpg": "/img/monsters/necromancer_details.png",
   };
 
   useEffect(() => setIsClient(true), []);
