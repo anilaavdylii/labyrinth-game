@@ -18,7 +18,7 @@ const HEROES = {
     img: "/img/heroes/warrior.jpg",
     hp: 20,
     gear: ["Simple Sword", "Light Armor"],
-    ability: "3x a game: Block an instance of damage.",
+    ability: "2x a game: Block an instance of damage.",
   },
   mage: {
     name: "Mage",
@@ -26,7 +26,7 @@ const HEROES = {
     hp: 10,
     gear: ["Cloak of the Fey", "Potion of Healing"],
     ability:
-      "Once per round: Deal 3 damage to any creature within 5 squares of you.",
+      "Once per round: Deal 2 damage to any creature within 5 squares of you.",
   },
 };
 
@@ -122,6 +122,13 @@ export default function GridBoard() {
   const [difficulty, setDifficulty] = useState("");
 
   const router = useRouter();
+
+  const [diceValue, setDiceValue] = useState(null);
+
+  const rollDice = () => {
+    const value = 1 + Math.floor(Math.random() * 3);
+    setDiceValue(value);
+  };
 
   const MONSTER_DETAILS = {
     "/img/monsters/skeleton.jpg": "/img/monsters/skeleton_details.png",

@@ -22,6 +22,14 @@ const SelfVisualization = ({
   const [treasures, setTreasures] = useState([]);
   const [bossMonster, setBossMonster] = useState(null);
 
+  const [diceValue, setDiceValue] = useState(null);
+  const [diceRolling, setDiceRolling] = useState(false);
+
+  const rollDice = () => {
+  const value = 1 + Math.floor(Math.random() * 3);
+  setDiceValue(value);
+  };
+
   useEffect(() => {
     // Entry tile / rooms without allowedTiles
     if (!allowedTiles) {
@@ -48,9 +56,22 @@ const SelfVisualization = ({
     if (bossMonsterSrc) {
       const usedIndices = new Set();
 
+      const possibleBossIndices = allowedIndices.filter((index) => {
+        const row = Math.floor(index / cols);
+        const col = index % cols;
+
+        return (
+          col < cols - 1 &&
+          row < rows - 1 &&
+          allowedTiles[index + 1] === "allowed" &&
+          allowedTiles[index + cols] === "allowed" &&
+          allowedTiles[index + cols + 1] === "allowed"
+        );
+      });
+      if (possibleBossIndices.length === 0) return;
       const bossIndex =
-        allowedIndices[Math.floor(Math.random() * allowedIndices.length)];
-      usedIndices.add(bossIndex);
+        possibleBossIndices[Math.floor(Math.random() * possibleBossIndices.length)];
+
 
       const bossRow = Math.floor(bossIndex / cols);
       const bossCol = bossIndex % cols;
@@ -209,10 +230,10 @@ const SelfVisualization = ({
         {bossMonster && (
           <image
             href={bossMonster.src}
-            x={bossMonster.x + cellSize * 0.1}
-            y={bossMonster.y + cellSize * 0.1}
-            width={cellSize * 0.8}
-            height={cellSize * 0.8}
+            x={bossMonster.x}
+            y={bossMonster.y}
+            width={bossMonster.width}
+            height={bossMonster.height}
             preserveAspectRatio="xMidYMid meet"
             style={{ cursor: "pointer" }}
             onClick={() => onBossClick && onBossClick(bossMonster.src)}
@@ -233,24 +254,25 @@ const SelfVisualization = ({
           />
         ))}
 
-        {treasures.map((treasure, i) => (
-          <image
-            key={`t-${i}`}
-            href={treasure.src}
-            x={treasure.x + cellSize * 0.2}
-            y={treasure.y + cellSize * 0.2}
-            width={cellSize * 0.6}
-            height={cellSize * 0.6}
-            preserveAspectRatio="xMidYMid meet"
-            style={{ cursor: "pointer" }}
-            onClick={() => onTreasureClick && onTreasureClick(treasure.src)}
-          />
-        ))}
+ {treasures.map((treasure, i) => (
+           <image
+             key={`t-${i}`}
+             href={treasure.src}
+             x={treasure.x + cellSize * 0.2}
+             y={treasure.y + cellSize * 0.2}
+             width={cellSize * 0.6}
+             height={cellSize * 0.6}
+             preserveAspectRatio="xMidYMid meet"
+             style={{ cursor: "pointer" }}
+             onClick={() => onTreasureClick && onTreasureClick(treasure.src)}
+           />
+         ))}
       </svg>
 
       {/* Dice UI */}
-      <div className="fixed bottom-20 right-4 z-40 flex items-center gap-2">
+      <div className="fixed bottom-20 right-4 z-[9999] flex items-center gap-2 pointer-events-auto">
         <button
+          type="button"
           onClick={rollDice}
           className="w-12 h-12 rounded-full border-2 border-yellow-500 bg-gray-900 shadow-xl
                      flex items-center justify-center hover:bg-gray-800 transition"
