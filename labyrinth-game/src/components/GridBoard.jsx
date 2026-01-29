@@ -35,61 +35,271 @@ const BASE_ROOMS = [
   {
     src: "/img/img1.png",
     allowedTiles: [
-      "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "notallowed","allowed","notallowed","allowed","allowed","notallowed","allowed","notallowed",
-      "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "notallowed","allowed","notallowed","allowed","allowed","notallowed","allowed","notallowed",
-      "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
     ],
   },
   {
     src: "/img/img2.png",
     allowedTiles: [
-      "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "allowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "allowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "allowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "notallowed","notallowed","notallowed","notallowed","notallowed","notallowed","notallowed","notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
     ],
   },
   {
     src: "/img/img3.png",
     allowedTiles: [
-      "notallowed","notallowed","notallowed","notallowed","notallowed","notallowed","notallowed","notallowed",
-      "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "notallowed","notallowed","notallowed","notallowed","notallowed","notallowed","notallowed","notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
     ],
   },
   {
     src: "/img/img4.png",
     allowedTiles: [
-      "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-      "notallowed","notallowed","notallowed","notallowed","notallowed","notallowed","notallowed","notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
     ],
   },
   {
     src: "/img/img5.png",
     allowedTiles: [
-      "allowed","allowed","allowed","notallowed","notallowed","allowed","allowed","allowed",
-      "allowed","allowed","allowed","allowed","allowed","allowed","allowed","allowed",
-      "allowed","allowed","allowed","allowed","allowed","allowed","allowed","allowed",
-      "allowed","allowed","allowed","allowed","allowed","allowed","allowed","allowed",
-      "notallowed","notallowed","notallowed","notallowed","notallowed","notallowed","notallowed","notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "allowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
+      "notallowed",
     ],
   },
 ];
 
 const BOSS_ALLOWED_TILES = [
-  "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
-  "allowed","allowed","allowed","allowed","allowed","allowed","allowed","allowed",
-  "allowed","allowed","allowed","notallowed","notallowed","allowed","allowed","allowed",
-  "allowed","allowed","allowed","allowed","allowed","allowed","allowed","allowed",
-  "notallowed","allowed","allowed","allowed","allowed","allowed","allowed","notallowed",
+  "notallowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "notallowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "notallowed",
+  "notallowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "notallowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "allowed",
+  "notallowed",
 ];
 
 function pickRandom(arr) {
@@ -169,9 +379,14 @@ export default function GridBoard() {
     }
 
     const positions = [
-      [0, 0],[0, 1],[0, 2],
-      [1, 0],       [1, 2],
-      [2, 0],[2, 1],[2, 2],
+      [0, 0],
+      [0, 1],
+      [0, 2],
+      [1, 0],
+      [1, 2],
+      [2, 0],
+      [2, 1],
+      [2, 2],
     ];
 
     const index = positions.findIndex((p) => p[0] === row && p[1] === col);
@@ -191,7 +406,8 @@ export default function GridBoard() {
   }, [hero, currentHp]);
 
   const incHp = () => setCurrentHp((v) => (v === null ? 0 : v + 1));
-  const decHp = () => setCurrentHp((v) => (v === null ? 0 : Math.max(0, v - 1)));
+  const decHp = () =>
+    setCurrentHp((v) => (v === null ? 0 : Math.max(0, v - 1)));
 
   const openTreasure = ({ isBoss }) => {
     const pile = pickRandom(LOOT_PILES);
@@ -220,7 +436,9 @@ export default function GridBoard() {
                 >
                   -
                 </button>
-                <span className="min-w-[2ch] text-center">{currentHp ?? hero.hp}</span>
+                <span className="min-w-[2ch] text-center">
+                  {currentHp ?? hero.hp}
+                </span>
                 <button
                   onClick={incHp}
                   className="w-7 h-7 rounded bg-gray-700 hover:bg-gray-600 text-yellow-300 font-bold"
@@ -265,7 +483,10 @@ export default function GridBoard() {
       <div className="grid grid-cols-3 gap-2 w-full max-w-4xl">
         <div />
         <div className="relative overflow-hidden shadow-2xl rounded-lg border border-gray-700 aspect-[8/5]">
-          <SelfVisualization backgroundImage={ENTRY_IMAGE} allowedTiles={null} />
+          <SelfVisualization
+            backgroundImage={ENTRY_IMAGE}
+            allowedTiles={null}
+          />
         </div>
         <div />
       </div>
@@ -310,7 +531,7 @@ export default function GridBoard() {
                   )}
                 </div>
               );
-            })
+            }),
           )}
         </div>
       )}
@@ -319,7 +540,7 @@ export default function GridBoard() {
       {selectedMonster && (
         <div className="fixed inset-0 bg-opacity-50 bg-blur flex items-center justify-center z-50">
           <div className="absolute inset-0 bg-opacity-50 backdrop-blur-sm"></div>
-          <div className="relative bg-gray-900 p-3 shadow-lg flex flex-col items-center z-10">
+          <div className="relative bg-gray-900 p-3 shadow-lg flex flex-col items-center z-10 overflow-auto max-h-[full]">
             <img
               src={MONSTER_DETAILS[selectedMonster] || selectedMonster}
               className="w-[450px] max-w-[92vw] h-auto object-contain rounded-lg"
@@ -350,7 +571,8 @@ export default function GridBoard() {
 
             <div className="bg-gray-800 rounded-lg p-4 mb-4">
               <p className="text-gray-200 text-center mb-3">
-                Draw <span className="text-yellow-400 font-bold">1 card</span> from:
+                Draw <span className="text-yellow-400 font-bold">1 card</span>{" "}
+                from:
               </p>
 
               <div className="text-center text-green-400 font-semibold text-lg">
@@ -448,7 +670,9 @@ export default function GridBoard() {
                     alt={h.name}
                     className="w-24 h-24 object-contain mb-2"
                   />
-                  <span className="text-yellow-300 font-semibold">{h.name}</span>
+                  <span className="text-yellow-300 font-semibold">
+                    {h.name}
+                  </span>
                 </button>
               ))}
             </div>
