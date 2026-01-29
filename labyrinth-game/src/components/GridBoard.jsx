@@ -540,7 +540,7 @@ export default function GridBoard() {
       {selectedMonster && (
         <div className="fixed inset-0 bg-opacity-50 bg-blur flex items-center justify-center z-50">
           <div className="absolute inset-0 bg-opacity-50 backdrop-blur-sm"></div>
-          <div className="relative bg-gray-900 p-3 shadow-lg flex flex-col items-center z-10 overflow-auto max-h-[full]">
+          <div className="relative bg-gray-900 p-3 shadow-lg flex flex-col items-center z-10 overflow-auto max-h-full">
             <img
               src={MONSTER_DETAILS[selectedMonster] || selectedMonster}
               className="w-[450px] max-w-[92vw] h-auto object-contain rounded-lg"
